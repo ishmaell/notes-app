@@ -1,6 +1,6 @@
 export default function Note() {
   return (
-    <div>
+    <div className="">
       <h1>Notes goes here..</h1>
     </div>
   );

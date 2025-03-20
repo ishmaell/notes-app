@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -5,7 +7,7 @@
 }
 
 body {
-  background: #f0f0f0;
+  @apply bg-gray-100;
 }
 
 a {
