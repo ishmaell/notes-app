@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import { Figtree } from "next/font/google";
+import { Merriweather } from "next/font/google";
 import "../styles/globals.css";
 
-const figtree = Figtree({ subsets: ["latin"] });
+const merriweather = Merriweather({
+  subsets: ["latin"],
+  weight: "300",
+});
 
 export const metadata: Metadata = {
   title: "Notes App",
@@ -17,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={figtree.className}>{children}</body>
+      <body className={merriweather.className}>{children}</body>
     </html>
   );
 }
