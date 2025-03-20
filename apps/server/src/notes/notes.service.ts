@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -18,10 +17,6 @@ export class NotesService {
   ) {}
 
   async create(createNoteDto: CreateNoteDto): Promise<NoteResponseDto> {
-    if (!createNoteDto.title || createNoteDto.title.trim() === '') {
-      throw new BadRequestException('Note title cannot be empty');
-    }
-
     try {
       const note = await this.noteRepository.save(createNoteDto);
       return new NoteResponseDto(note);

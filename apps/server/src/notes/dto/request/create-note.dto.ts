@@ -1,9 +1,8 @@
 import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
 export class CreateNoteDto {
-  @IsNotEmpty()
-  @IsString()
   @MaxLength(255)
+  @IsNotEmpty()
   title: string;
 
   @IsString()
