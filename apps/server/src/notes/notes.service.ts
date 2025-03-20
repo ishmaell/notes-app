@@ -4,10 +4,11 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateNoteDto } from './dto/create-note.dto';
+import { CreateNoteDto } from './dto/request/create-note.dto';
 import { Repository } from 'typeorm';
 import { NoteEntity } from './entities/note.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { NoteResponseDto } from './dto/response/note.response.dto';
 
 @Injectable()
 export class NotesService {
@@ -16,13 +17,14 @@ export class NotesService {
     private readonly noteRepository: Repository<NoteEntity>,
   ) {}
 
-  async create(createNoteDto: CreateNoteDto): Promise<NoteEntity> {
+  async create(createNoteDto: CreateNoteDto): Promise<NoteResponseDto> {
     if (!createNoteDto.title || createNoteDto.title.trim() === '') {
       throw new BadRequestException('Note title cannot be empty');
     }
 
     try {
-      return await this.noteRepository.save(createNoteDto);
+      const note = await this.noteRepository.save(createNoteDto);
+      return new NoteResponseDto(note);
     } catch (error) {
       let errorMessage = 'Failed to create note';
 
@@ -33,8 +35,9 @@ export class NotesService {
     }
   }
 
-  findAll() {
-    return this.noteRepository.find();
+  async findAll(): Promise<NoteResponseDto[]> {
+    const notes = await this.noteRepository.find();
+    return notes.map((note) => new NoteResponseDto(note));
   }
 
   async remove(id: number): Promise<void> {
