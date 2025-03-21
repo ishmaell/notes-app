@@ -1,7 +1,34 @@
+"use client";
+
+import { NotesForm } from "@/components/notes/notes-form";
+import { NoteGrid } from "@/components/notes/notes-grid";
+import { useFetchNotes } from "@repo/ui/api/hooks/notes";
+
 export default function Note() {
+  const { data: notes, isLoading } = useFetchNotes();
+  const sortedNotes =
+    notes
+      ?.slice()
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      ) || [];
+
   return (
-    <div className="">
-      <h1>Notes goes here..</h1>
+    <div className="max-w-3xl mx-auto">
+      <h1 className="text-center text-4xl font-semibold tracking-wider text-white mb-8">
+        What&apos;s on your mind?
+      </h1>
+
+      <NotesForm />
+
+      {isLoading ? (
+        <p className="text-center text-white">Loading notes...</p>
+      ) : notes?.length ? (
+        <NoteGrid notes={sortedNotes} />
+      ) : (
+        <p className="text-center text-gray-400">No notes found.</p>
+      )}
     </div>
   );
 }
