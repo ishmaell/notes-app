@@ -6,6 +6,13 @@ import { useFetchNotes } from "@repo/ui/api/hooks/notes";
 
 export default function Note() {
   const { data: notes, isLoading } = useFetchNotes();
+  const sortedNotes =
+    notes
+      ?.slice()
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      ) || [];
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -18,7 +25,7 @@ export default function Note() {
       {isLoading ? (
         <p className="text-center text-white">Loading notes...</p>
       ) : notes?.length ? (
-        <NoteGrid notes={notes} />
+        <NoteGrid notes={sortedNotes} />
       ) : (
         <p className="text-center text-gray-400">No notes found.</p>
       )}

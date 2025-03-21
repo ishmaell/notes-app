@@ -3,5 +3,5 @@ export default function NotesLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <section className="py-16">{children}</section>;
+  return <section className="py-16 px-4">{children}</section>;
 }
