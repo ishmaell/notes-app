@@ -7,6 +7,7 @@ import Input from "@/components/ui/input";
 import TextArea from "@/components/ui/textarea";
 import Button from "@/components/ui/button";
 import { useCreateNote } from "@repo/ui/api/hooks/notes";
+import { toast } from "react-toastify";
 
 const notesSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -36,14 +37,17 @@ export const NotesForm = () => {
   const onSubmit = (note: z.infer<typeof notesSchema>) => {
     createNote(note, {
       onSuccess: () => {
+        toast.success("Note was added successfully");
         reset();
       },
-      onError: () => {},
+      onError: () => {
+        toast.error("Adding note failed");
+      },
     });
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="mb-8">
       <div className="mb-4">
         <Input placeholder="Title" type="text" {...register("title")} />
       </div>

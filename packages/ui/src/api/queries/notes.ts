@@ -1,6 +1,6 @@
-import { NoteData } from "../../interfaces/notes";
+import { NoteDataPayload, NoteRequestPayload } from "../../interfaces/notes";
 
-export async function createNote(noteData: NoteData) {
+export async function createNote(noteData: NoteRequestPayload) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API}/notes`, {
     method: "POST",
     headers: {
@@ -16,7 +16,7 @@ export async function createNote(noteData: NoteData) {
   return response.json();
 }
 
-export async function fetchNotes() {
+export async function fetchNotes(): Promise<NoteDataPayload[]> {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API}/notes`);
 
   if (!response.ok) {

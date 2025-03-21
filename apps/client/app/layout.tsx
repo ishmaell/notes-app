@@ -5,7 +5,7 @@ import Providers from "@repo/ui/shared/providers";
 
 const merriweather = Merriweather({
   subsets: ["latin"],
-  weight: "300",
+  weight: ["300", "700"],
 });
 
 export const metadata: Metadata = {
