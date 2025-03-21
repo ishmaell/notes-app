@@ -1,6 +1,7 @@
 import "@repo/ui/globals.css";
 import type { Metadata } from "next";
 import { Merriweather } from "next/font/google";
+import Providers from "@repo/ui/shared/providers";
 
 const merriweather = Merriweather({
   subsets: ["latin"],
@@ -20,7 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={merriweather.className}>{children}</body>
+      <body className={merriweather.className}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
