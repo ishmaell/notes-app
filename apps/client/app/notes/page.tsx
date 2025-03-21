@@ -1,7 +1,5 @@
 import { NotesForm } from "@/components/notes-form";
 
-
-
 export default function Note() {
   return (
     <div className="max-w-3xl mx-auto">
@@ -9,7 +7,6 @@ export default function Note() {
         What&apos;s on your mind?
       </h1>
       <NotesForm />
-      
     </div>
   );
 }

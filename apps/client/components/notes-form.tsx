@@ -19,6 +19,7 @@ export const NotesForm = () => {
     handleSubmit,
     watch,
     formState: { isSubmitting },
+    reset,
   } = useForm({
     resolver: zodResolver(notesSchema),
     defaultValues: {
@@ -34,7 +35,9 @@ export const NotesForm = () => {
 
   const onSubmit = (note: z.infer<typeof notesSchema>) => {
     createNote(note, {
-      onSuccess: () => {},
+      onSuccess: () => {
+        reset();
+      },
       onError: () => {},
     });
   };
